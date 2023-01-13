@@ -1,0 +1,38 @@
+[tool.poetry]
+name = "iad-backend"
+version = "0.1.0"
+description = ""
+authors = ["Eldar Khayarov <eldar@niuitmo.ru>"]
+
+[tool.poetry.dependencies]
+python = "3.10.*"
+fastapi = "^0.89.0"
+asyncpg = "^0.27.0"
+alembic = "^1.9.1"
+PyJWT = "^2.6.0"
+aiosql = "^7.2"
+aiohttp = "^3.8.3"
+databases = {extras = ["asyncpg"], version = "^0.7.0"}
+uvicorn = "^0.20.0"
+loguru = "^0.6.0"
+python-multipart = "^0.0.5"
+grpcio = "^1.51.1"
+#torch = "^1.13.1"
+
+[tool.poetry.dev-dependencies]
+black = "^22.12.0"
+isort = "^5.11.4"
+autoflake = "^2.0.0"
+pytest = "^7.2.0"
+pytest-asyncio = "^0.20.3"
+httpx = "^0.23.3"
+asgi-lifespan = "^2.0.0"
+
+[tool.isort]
+profile = "black"
+src_paths = ["app", "tests"]
+combine_as_imports = true
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
