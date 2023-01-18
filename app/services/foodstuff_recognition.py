@@ -2,7 +2,7 @@ from app.core.config import get_app_settings
 from app.services.recipes_parsing.types import RecipesAPIClient
 from app.services.ai_model.app import detect
 from app.models.schemas.recipes import (
-    RecognizedIngredient,
+    DetectedIngredient,
     FoodstuffRecognitionResponse,
 )
 
@@ -10,11 +10,11 @@ settings = get_app_settings()
 
 
 def get_foodstuff_scanner():
-    return FoodstuffScanner()
+    return FoodstuffDetector()
 
 
-class FoodstuffScanner:
-    async def scan(
+class FoodstuffDetector:
+    async def detect(
         self,
         image: bytes,
         parser: RecipesAPIClient,
@@ -29,8 +29,8 @@ class FoodstuffScanner:
             words=tuple(detected_objects_dict.keys()),
         )
         return FoodstuffRecognitionResponse(
-            recognized_ingredients=[
-                RecognizedIngredient(label=label, count=count)
+            detected_ingredients=[
+                DetectedIngredient(label=label, count=count)
                 for label, count in detected_objects_dict.items()
             ],
             recipes_count=len(recipes),

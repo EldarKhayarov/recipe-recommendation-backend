@@ -1,9 +1,14 @@
-from pydantic import BaseModel, HttpUrl
+from pydantic import BaseModel, BaseConfig, HttpUrl, Field
+
+from app.utils import convert_field_to_camel_case
 
 
-class RecognizedIngredient(BaseModel):
+class DetectedIngredient(BaseModel):
     label: str
-    count: int
+    count: int = Field(..., alias="ingredientCount")
+
+    class Config(BaseConfig):
+        allow_population_by_field_name = True
 
 
 class Recipe(BaseModel):
@@ -17,6 +22,10 @@ class Recipe(BaseModel):
 
 
 class FoodstuffRecognitionResponse(BaseModel):
-    recognized_ingredients: list[RecognizedIngredient]
+    detected_ingredients: list[DetectedIngredient]
     recipes_count: int
     recipes: list[Recipe]
+
+    class Config(BaseConfig):
+        alias_generator = convert_field_to_camel_case
+        allow_population_by_field_name = True
